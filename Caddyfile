@@ -1,0 +1,3 @@
+{$DOMAIN} {
+	reverse_proxy cloud:8080
+}

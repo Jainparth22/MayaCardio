@@ -1,0 +1,30 @@
+# Cloud service behind Caddy, which obtains and renews the HTTPS certificate.
+# Only Caddy is reachable from outside. Settings come from .env (see .env.example).
+services:
+  cloud:
+    build: .
+    restart: unless-stopped
+    environment:
+      BEATKEEPER_API_KEY: ${BEATKEEPER_API_KEY:?set BEATKEEPER_API_KEY in .env}
+    volumes:
+      - cloud-data:/data
+
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - cloud
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  cloud-data:
+  caddy-data:
+  caddy-config:
