@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "mayacardio-pipeline"
+version = "1.0.0"
+description = "MayaCardio biosignal pipeline — device side"
+requires-python = ">=3.10"
+dependencies = []          # stdlib only on the device side
+
+[project.optional-dependencies]
+cloud = ["flask>=3.0"]     # cloud_server only
+dev   = ["pytest>=8.0"]
+
+[project.scripts]
+pipeline = "pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

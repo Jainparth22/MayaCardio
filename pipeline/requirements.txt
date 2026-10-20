@@ -1,0 +1,9 @@
+# Device side: no extra packages required (stdlib only)
+# To install for development/testing:
+#   pip install -e ".[dev]"
+
+# Cloud server only:
+flask>=3.0
+
+# Optional: for resource measurement on non-Linux systems
+psutil>=5.9; sys_platform != "linux"
